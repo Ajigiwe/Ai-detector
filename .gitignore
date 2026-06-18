@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Scratch/output files
+pdf_text.txt
+original_assessment.txt
+
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+*.synctex.gz
+fakenews.tex
+
+# Large binary/document files (personal — not part of the tool)
+*.pdf
+docs/
+*.docx
+!cyber_security_assessment_final_v8.docx
+
+# OS files
+.DS_Store
+Thumbs.db

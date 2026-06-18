@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minimal AI Detector & Humanizer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="header-content">
+        <h1>AI Detector & Humanizer</h1>
+        <p>Analyze text for AI indicators, see detailed flags, and convert into a clean humanized layout.</p>
+      </div>
+      <div class="tab-navigation">
+        <button id="tab-workspace" class="tab-btn active">Workspace</button>
+        <button id="tab-analysis" class="tab-btn">Detailed Analysis</button>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <!-- Section 1: Workspace (Source Input & Results View) -->
+      <div id="section-workspace" class="workspace-grid">
+        <!-- Panel 1: Source Input -->
+        <section class="panel">
+          <div class="panel-title">
+            <span>Source Input</span>
+            <span id="char-count" class="badge">0 chars</span>
+          </div>
+          
+          <div id="file-dropzone" class="dropzone">
+            Drag & Drop a .txt, .docx, or .pdf file here, or click to upload
+            <input type="file" id="file-input" accept=".txt,.docx,.pdf" style="display: none;">
+          </div>
+
+          <div class="editor-container">
+            <textarea id="input-textarea" placeholder="Paste your text here to analyze or humanize..."></textarea>
+          </div>
+
+          <div class="controls">
+            <button id="btn-detect">Analyze Text</button>
+            <button id="btn-humanize" class="secondary">Humanize Text</button>
+          </div>
+        </section>
+
+        <!-- Panel 2: Interactive Output Highlights -->
+        <section class="panel">
+          <div class="panel-title">
+            <span>Results & Output View</span>
+            <span id="result-tab-title" class="badge">Clean Text</span>
+          </div>
+
+          <!-- Metric Bar -->
+          <div class="status-bar">
+            <div class="gauge-container">
+              <span>AI Probability:</span>
+              <div class="gauge-bar-outer">
+                <div id="ai-gauge" class="gauge-bar-inner"></div>
+              </div>
+              <strong id="ai-percentage">0%</strong>
+            </div>
+            <span id="ai-status" class="status-badge">Safe</span>
+          </div>
+
+          <!-- Output display area -->
+          <div class="editor-container">
+            <div id="output-view" class="output-display">Original or humanized text will appear here...</div>
+          </div>
+
+          <div class="controls grid-2x2">
+            <button id="btn-copy">Copy Text</button>
+            <button id="btn-download" class="secondary">Download TXT</button>
+            <button id="btn-pdf" class="secondary">Export PDF</button>
+            <button id="btn-word" class="secondary">Export Word</button>
+          </div>
+        </section>
+      </div>
+
+      <!-- Section 2: Detailed Analysis Section (Panel 3) -->
+      <div id="section-analysis" class="analysis-grid" style="display: none;">
+        <!-- Panel 3: Flagged Indicators List & Stats -->
+        <section class="panel full-width">
+          <div class="panel-title">
+            <span>Analysis Details</span>
+            <span class="badge">Flags</span>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-val" id="stat-burstiness">0.0</div>
+              <div class="stat-label">Burstiness</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-val" id="stat-diversity">0%</div>
+              <div class="stat-label">Vocab Diversity</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-val" id="stat-contractions">100%</div>
+              <div class="stat-label">Contraction Ratio</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-val" id="stat-transitions">0</div>
+              <div class="stat-label">List Connectors</div>
+            </div>
+          </div>
+
+          <div class="analysis-details-row">
+            <div class="flagged-list-container">
+              <div class="flagged-list-title">Flagged Sentences (Click to view)</div>
+              <div id="flagged-items-list" class="flagged-list">
+                <div class="no-flags-msg">No active analysis. Paste text and click "Analyze Text".</div>
+              </div>
+            </div>
+
+            <div class="checklist-container">
+              <div class="checklist-title">Heuristic Diagnoses</div>
+              <div id="checklist-items-list" class="checklist-list">
+                <div class="no-flags-msg">Run detection to generate structural diagnostics.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast-notif" class="toast">Action completed successfully!</div>
+
+  <!-- Load Libraries for Client-Side Extraction & Export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://unpkg.com/docx@8.2.3/build/index.umd.js"></script>
+
+  <!-- Load Modules -->
+  <script src="detector.js"></script>
+  <script src="humanizer.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
